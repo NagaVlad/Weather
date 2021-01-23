@@ -3,6 +3,8 @@ import './styles/styles.scss'
 
 //* Результат блока
 let infoLocation = document.createElement('div')
+let infoLocation2 = document.createElement('div')
+let infoLocation3 = document.createElement('div')
 
 //Geolocation start
 const token = 'efca0f8ab010de';
@@ -175,39 +177,61 @@ async function init() {
 
 
    if (lang == true) {
-      infoLocation.innerHTML =
-         `<p>Координаты: ${q}</p>
-   <p>Дата и время: ${result.threeDays.location.localtime}</p>
-   <p>Страна: ${lang ? result.rus : result.threeDays.location.country}</p>
-   <p>ГОРОД RUS: ${qCity == null ? result.newcity : qCity}</p>
+      infoLocation.classList.add('blocks__today')
+      infoLocation2.classList.add('next__info')
+
+      infoLocation.innerHTML = `
+      <h1>Погода сегодня</h1>
+      <div class='today1'>
+      <div class='today2'>
+      <p>Страна: ${lang ? result.rus : result.threeDays.location.country}</p>
+      <p>Город: ${qCity == null ? result.newcity : qCity}</p>
+      <p>Время: ${correctTime(newDate)}</p>
+   <p>Дата: ${correctDate(newDate)}</p>
+   </div>
+
+   <div class="today2">
    <p>Температура : ${unit ? result.threeDays.current.temp_c : result.threeDays.current.temp_f}</p>
    <p>Ощущается : ${unit ? result.threeDays.current.feelslike_c : result.threeDays.current.feelslike_f}</p>
-
    <p>Влажность : ${result.threeDays.current.humidity}</p>
    <p>Скорост ветра : ${result.threeDays.current.wind_mph}</p>
+   <img src=${threeDays(result)[2]} alt="альтернативный текст">
+   </div>
+   </div>
+   `
 
-
-   <p>Время: ${correctTime(newDate)}</p>
-   <p>Дата: ${correctDate(newDate)}</p>
-   <img src=${threeDays(result)[9]} alt="альтернативный текст">
-   
-   <h1> Прогноз погоды на 3 дня</h1>
+      infoLocation2.innerHTML = `
+      
+   <div class="info__day">
+   <div class="day__weather">
    <p>Дата: ${threeDays(result)[0]}</p>
    <p>Температура: ${threeDays(result)[1]}</p>
    <img src=${threeDays(result)[2]} alt="альтернативный текст">
+   </div>
+   </div>
 
-   <p>Дата: ${threeDays(result)[3]}</p>
+   <div class="info__day">
+   <div class="day__weather">
+   <p>Дата: ${threeDays(result)[3]}</p>  
    <p>Температура: ${threeDays(result)[4]}</p>
    <img src=${threeDays(result)[5]} alt="альтернативный текст">
+   </div>
+   </div>
 
+   <div class="info__day">
+   <div class="day__weather">
    <p>Дата: ${threeDays(result)[6]}</p>
    <p>Temperature: ${threeDays(result)[7]}</p>
    <img src=${threeDays(result)[8]} alt="альтернативный текст">
-
+   </div>
+   </div>
    `
-      // !!!!!!!!! wind_mph  humidity
+      infoLocation3.innerHTML = `<p>Координаты: ${q}</p>`
 
-      document.querySelector('.test').append(infoLocation)
+      document.querySelector('.today__title').after(infoLocation)
+      document.querySelector('.next__title').after(infoLocation2)
+
+      document.querySelector('#map').before(infoLocation3)
    } else {
       infoLocation.innerHTML =
          `<p>Coordinates: ${q}</p>
@@ -309,16 +333,26 @@ async function newCity(name) {
 }
 
 async function getBgImg() {
-   let bgImg = await fetch(`https://api.unsplash.com/photos/random?client_id=${accessKey}`)
+   // let bgImg = await fetch(`https://api.unsplash.com/collections/3853054/?client_id=${accessKey}&cout=10&page=2`)
+   let bgImg = await fetch(`https://api.unsplash.com/photos/random?client_id=${accessKey}&cout=10&page=2`)
       .then(
          (response) => response.json()
 
       ).then(
          (jsonResponse) => jsonResponse
       )
+   let i = randomInteger()
+   console.log(i);
    console.log(bgImg);
-   document.body.style.background = `url(${bgImg.urls.regular})`//raw //thumb
+   document.body.style.background = `url(${bgImg.urls.full})`//raw //thumb
 
+}
+
+
+function randomInteger() {
+   // случайное число от min до (max+1)
+   let rand = 0 + Math.random() * (3 + 1 - 0);
+   return Math.floor(rand);
 }
 
 function savetoLacalStorage() {
