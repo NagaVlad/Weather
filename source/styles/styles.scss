@@ -1,0 +1,41 @@
+body {
+   margin: 0;
+   padding: 0;
+}
+
+#map {
+   display: flex;
+   width: 50%;
+   height: 50%;
+}
+
+.blocks {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+title {
+   // color: red;
+}
+//control
+.blocks__control {
+   padding: 15px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   flex: 1 1 100%;
+   text-align: center;
+   // border: 1px solid black;
+}
+.control__title {
+}
+.control__btn {
+}
+.button {
+}
+
+#search {
+   margin-top: 5px;
+}

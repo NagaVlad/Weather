@@ -1,0 +1,72 @@
+<html>
+
+<head>
+   <meta charset="utf-8" />
+   <title>WEATHER</title>
+   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+   <script src="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js"></script>
+   <link href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css" rel="stylesheet" />
+</head>
+
+<body>
+
+
+   <div class="test">
+
+   </div>
+   <div id="map"></div>
+
+   <div class="blocks">
+      <div class="blocks__control">
+         <div class="control__title title">
+            <h1>Блок контроля</h1>
+         </div>
+         <div class="control__btn">
+            <button id='bg' class="button">Сменить фон</button>
+            <button id='lang' class="button">Eng/Rus</button>
+            <button id='unit' class="button">°C/°F</button>
+            <button id='back' class="button">Локальное место</button>
+         </div>
+         <input type="search" name="" id="search" placeholder="Введите город">
+         <button id='btnSearch' class="button">Найти</button>
+      </div>
+
+      <div class="blocks__today">
+         <div class="today__title title">
+            <h1>Погода сегодня</h1>
+         </div>
+         <div class="today__content">
+            <p>название населённого пункта, название страны
+               текущая дата: день недели в коротком формате, число, месяц. Например: Сб 26 октября
+               время: часы, минуты, секунды. Например: 17:23:12. Обновляется раз в секунду
+               температура в текущий промежуток времени
+               описание погоды (summary), ощущаемая температура (apparent temperature), скорость ветра(м/с),
+               влажность(%)
+               иконка погоды</p>
+         </div>
+      </div>
+
+      <div class="blocks__next">
+         <div class="next__title title">
+            <h1>Погода на 3 дня</h1>
+         </div>
+         <div class="next__content">
+            <p>день недели в полном формате
+               средняя температура
+               иконка погоды</p>
+         </div>
+      </div>
+
+      <div class="blocks__geo">
+         <div class="geo__title title">
+            <h1>Геолокация</h1>
+         </div>
+         <div class="geo__content">
+            <p>координаты населённого пункта: долгота и широта (в градусах и минутах)
+               карта местности</p>
+         </div>
+      </div>
+
+</body>
+
+</html>
