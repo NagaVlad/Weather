@@ -63,7 +63,7 @@ document.querySelector('#bg').addEventListener('click', (e) => {
 
 document.querySelector('#back').addEventListener('click', (e) => {
    ip()
-   newCity()
+   newCity(searchCity)
    // main()
    init()
 })
@@ -186,84 +186,115 @@ async function init() {
       <div class='today2'>
       <p>Страна: ${lang ? result.rus : result.threeDays.location.country}</p>
       <p>Город: ${qCity == null ? result.newcity : qCity}</p>
+      <p>City: ${result.threeDays.location.name}</p>
       <p>Время: ${correctTime(newDate)}</p>
    <p>Дата: ${correctDate(newDate)}</p>
    </div>
 
    <div class="today2">
-   <p>Температура : ${unit ? result.threeDays.current.temp_c : result.threeDays.current.temp_f}</p>
-   <p>Ощущается : ${unit ? result.threeDays.current.feelslike_c : result.threeDays.current.feelslike_f}</p>
-   <p>Влажность : ${result.threeDays.current.humidity}</p>
-   <p>Скорост ветра : ${result.threeDays.current.wind_mph}</p>
-   <img src=${threeDays(result)[2]} alt="альтернативный текст">
+   <p>Температура : ${unit ? result.threeDays.current.temp_c + `°C` : result.threeDays.current.temp_f + `°F`}</p>
+   <p>Ощущается : ${unit ? result.threeDays.current.feelslike_c + `°C` : result.threeDays.current.feelslike_f + `°F`}</p>
+   <p>Влажность : ${result.threeDays.current.humidity} %</p>
+   <p>Скорост ветра : ${result.threeDays.current.wind_mph} м/с</p>
+   <img src=${threeDays(result)[12]} alt="альтернативный текст">
    </div>
    </div>
    `
 
       infoLocation2.innerHTML = `
-      
+      <div class="info__column">
+   <div class="newRow"><h1>Погода на 3 дня</h1></div>
    <div class="info__day">
    <div class="day__weather">
    <p>Дата: ${threeDays(result)[0]}</p>
-   <p>Температура: ${threeDays(result)[1]}</p>
-   <img src=${threeDays(result)[2]} alt="альтернативный текст">
+   <p>Температура: ${unit ? threeDays(result)[1] + ` °С` : threeDays(result)[2] + ` °F`} </p>
+   <img src=${threeDays(result)[3]} alt="альтернативный текст">
    </div>
    </div>
 
    <div class="info__day">
    <div class="day__weather">
-   <p>Дата: ${threeDays(result)[3]}</p>  
-   <p>Температура: ${threeDays(result)[4]}</p>
-   <img src=${threeDays(result)[5]} alt="альтернативный текст">
+   <p>Дата: ${threeDays(result)[4]}</p>  
+   <p>Температура: ${unit ? threeDays(result)[5] + ` °С` : threeDays(result)[6] + ` °F`} </p>
+   <img src=${threeDays(result)[7]} alt="альтернативный текст">
    </div>
    </div>
 
    <div class="info__day">
    <div class="day__weather">
-   <p>Дата: ${threeDays(result)[6]}</p>
-   <p>Temperature: ${threeDays(result)[7]}</p>
-   <img src=${threeDays(result)[8]} alt="альтернативный текст">
+   <p>Дата: ${threeDays(result)[8]}</p>
+   <p>Температура: ${unit ? threeDays(result)[9] + ` °С` : threeDays(result)[10] + ` °F`} </p>
+   <img src=${threeDays(result)[11]} alt="альтернативный текст">
    </div>
+   </div>
+
    </div>
    `
-      infoLocation3.innerHTML = `<p>Координаты: ${q}</p>`
-
+      infoLocation3.innerHTML = `
+      <h1>Геолокация</h1>
+      <p>Координаты: ${q}</p>`
       document.querySelector('.today__title').after(infoLocation)
       document.querySelector('.next__title').after(infoLocation2)
-
       document.querySelector('#map').before(infoLocation3)
    } else {
-      infoLocation.innerHTML =
-         `<p>Coordinates: ${q}</p>
-   <p>Date and time: ${result.threeDays.location.localtime}</p>
-   <p>Country: ${result.threeDays.location.country}</p>
-   <p>City: ${result.threeDays.location.name}</p>
-   <p>ГОРОД RUS: ${qCity == null ? result.newcity : qCity}</p>
-   <p>Temperature : ${unit ? result.threeDays.current.temp_c : result.threeDays.current.temp_f}</p>
-   <p>Feels : ${unit ? result.threeDays.current.feelslike_c : result.threeDays.current.feelslike_f}</p>
-   
-   
-   <p>humidity : ${result.threeDays.current.humidity}</p>
-   <p>Wind : ${result.threeDays.current.wind_mph}</p>
-
-   <p>Time: ${correctTime(newDate)}</p>
+      infoLocation.classList.add('blocks__today')
+      infoLocation2.classList.add('next__info')
+      infoLocation.innerHTML = `
+      <h1>Wheater today</h1>
+      <div class='today1'>
+      <div class='today2'>
+      <p>Country: ${lang ? result.rus : result.threeDays.location.country}</p>
+      <p>City: ${qCity == null ? result.newcity : qCity}</p>
+      <p>City2: ${result.threeDays.location.name}</p>
+      <p>Time: ${correctTime(newDate)}</p>
    <p>Date: ${correctDate(newDate)}</p>
-   <img src=${threeDays(result)[9]} alt="альтернативный текст">
-   
-   <h1> Прогноз погоды на 3 дня</h1>
-   <p>Date: ${threeDays(result)[0]}</p>
-   <p>Temperature: ${threeDays(result)[1]}</p>
-   <img src=${threeDays(result)[2]} alt="альтернативный текст">
+   </div>
 
-   <p>Date: ${threeDays(result)[3]}</p>
-   <p>Temperature: ${threeDays(result)[4]}</p>
-   <img src=${threeDays(result)[5]} alt="альтернативный текст">
-
-   <p>Date: ${threeDays(result)[6]}</p>
-   <p>Temperature: ${threeDays(result)[7]}</p>
-   <img src=${threeDays(result)[8]} alt="альтернативный текст">
+   <div class="today2">
+   <p>Temperature : ${unit ? result.threeDays.current.temp_c + ` °С` : result.threeDays.current.temp_f + ` °F`} </p>
+   <p>Feels : ${unit ? result.threeDays.current.feelslike_c + ` °С` : result.threeDays.current.feelslike_f + ` °F`} </p>
+   <p>Humidity : ${result.threeDays.current.humidity} %</p>
+   <p>Wind : ${result.threeDays.current.wind_mph} m/s</p>
+   <img src=${threeDays(result)[12]} alt="альтернативный текст">
+   </div>
+   </div>
    `
-      document.querySelector('.test').append(infoLocation)
+
+      infoLocation2.innerHTML = `
+      <div class="info__column">
+      <div class="newRow"><h1>Weather for three day</h1></div>
+   <div class="info__day">
+   <div class="day__weather">
+   <p>Date: ${threeDays(result)[0]}</p>
+   <p>Temperature: ${unit ? threeDays(result)[1] + ` °С` : threeDays(result)[2] + ` °F`} </p>
+   <img src=${threeDays(result)[3]} alt="альтернативный текст">
+   </div>
+   </div>
+
+   <div class="info__day">
+   <div class="day__weather">
+   <p>Date: ${threeDays(result)[4]}</p>  
+   <p>Temperature: ${unit ? threeDays(result)[5] + ` °С` : threeDays(result)[6] + ` °F`} </p>
+   <img src=${threeDays(result)[7]} alt="альтернативный текст">
+   </div>
+   </div>
+
+   <div class="info__day">
+   <div class="day__weather">
+   <p>Date: ${threeDays(result)[8]}</p>
+   <p>Temperature: ${unit ? threeDays(result)[9] + ` °С` : threeDays(result)[10] + ` °F`} </p>
+   <img src=${threeDays(result)[11]} alt="альтернативный текст">
+   </div>
+   </div>
+
+   </div>
+   `
+      infoLocation3.innerHTML = `
+      <h1>Geolocation</h1>
+      <p>Coordinates: ${q}</p>`
+      document.querySelector('.today__title').after(infoLocation)
+      document.querySelector('.next__title').after(infoLocation2)
+      document.querySelector('#map').before(infoLocation3)
    }
 }
 
@@ -301,6 +332,7 @@ function threeDays(data) {
    for (let i = 0; i < 3; i++) {
       forecastThreeDays.push(data.threeDays.forecast.forecastday[i].date)
       forecastThreeDays.push(data.threeDays.forecast.forecastday[i].day.avgtemp_c)
+      forecastThreeDays.push(data.threeDays.forecast.forecastday[i].day.avgtemp_f)
       forecastThreeDays.push(data.threeDays.forecast.forecastday[i].day.condition.icon)
    }
    forecastThreeDays.push(data.threeDays.current.condition.icon);
@@ -323,7 +355,7 @@ async function newCity(name) {
       ).then(
          (jsonResponse) => jsonResponse
       )
-   console.log(seacrhGeo);
+   console.log('!!!!!!!!!!!!!!', seacrhGeo);
    q = `${seacrhGeo.results[0].geometry.lat},${seacrhGeo.results[0].geometry.lng}`
    qCity = `${seacrhGeo.results[0].components.city}`
    // qCity = `${seacrhGeo.results[0].components.city}`
