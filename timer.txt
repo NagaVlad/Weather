@@ -1,0 +1,106 @@
+   var newDate2 = new Date(result.threeDays.location.localtime)
+
+   // console.log(document.querySelector('.time'));
+
+   // let times = '';
+   let p = newDate2;
+   function timerr(time) {
+      let h = time.getHours(),
+         m = time.getMinutes(),
+         s = time.getSeconds(),
+         x = ''
+      // document.querySelector('.time').innerHTML =
+      x = `2021-01-23, ${(h < 10 ? "0" : "") + h}:${(m < 10 ? "0" : "") + m}:${(s++ < 10 ? "0" : "") + s}`;
+
+      let newDate3 = new Date(x)
+      console.log(newDate3);
+      p = newDate3
+      // console.log(p);
+      document.querySelector('.time').innerHTML = `${(h < 10 ? "0" : "") + h}:${(m < 10 ? "0" : "") + m}:${(s++ < 10 ? "0" : "") + s}`
+      // console.log(newDate3);
+      // let h1 = newDate3.getHours(),
+      //    m1 = newDate3.getMinutes(),
+      //    s1 = newDate3.getSeconds();
+      // console.log(h1, s1, m1);
+
+      // times = newDate3
+      // newDate2 = times
+      // console.log(times);
+   }
+   timerr(newDate2)
+   setInterval(() => {
+      timerr(p)
+      // console.log(times);
+   }, 1000);
+
+
+
+
+
+
+
+
+
+
+
+
+      ////////////////////////////////////////////////////////////////////
+   let uuu = document.querySelector('.timeee')
+   var newDate2 = new Date(result.threeDays.location.localtime)
+
+   // console.log(document.querySelector('.time'));
+
+   // let times = '';
+   let p = newDate2;
+   function timerr(time) {
+      let h = time.getHours(),
+         m = time.getMinutes(),
+         s = time.getSeconds(),
+         x = ''
+      // document.querySelector('.time').innerHTML =
+      x = `2021-01-23, ${(h < 10 ? "0" : "") + h}:${(m < 10 ? "0" : "") + m}:${(s++ < 10 ? "0" : "") + s}`;
+
+      let newDate3 = new Date(x)
+      console.log(newDate3);
+      p = newDate3
+      // console.log(p);
+      uuu.innerHTML = `${(h < 10 ? "0" : "") + h}:${(m < 10 ? "0" : "") + m}:${(s++ < 10 ? "0" : "") + s}`
+      // console.log(newDate3);
+      // let h1 = newDate3.getHours(),
+      //    m1 = newDate3.getMinutes(),
+      //    s1 = newDate3.getSeconds();
+      // console.log(h1, s1, m1);
+
+      // times = newDate3
+      // newDate2 = times
+      // console.log(times);
+   }
+   timerr(newDate2)
+   let interval = setInterval(() => {
+      timerr(p)
+      // console.log(times);
+   }, 1000);
+
+   //////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+   // init();
+function gettt() {
+   let ccc = document.querySelector('.timeout')
+   console.log(ccc);
+}
+
+async function init2() {
+   await init()
+   await gettt()
+}
+
+init2()

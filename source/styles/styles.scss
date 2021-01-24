@@ -120,8 +120,12 @@ h1 {
    display: flex;
    flex-direction: row;
    flex-wrap: wrap;
-   flex: 1 1 20%;
-   justify-content: center;
+   flex: 1 1 40%;
+   // justify-content: center;
+}
+
+.info__day:last-child {
+   justify-content: start;
 }
 
 .today1 {
@@ -133,11 +137,11 @@ h1 {
 }
 
 .today2 {
-   margin-left: 20px;
+   margin-left: 10%;
 }
 
 .day__weather {
-   flex: 1 1 100%;
+   // flex: 1 1 50%;
 }
 
 .next__info {

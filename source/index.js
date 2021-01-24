@@ -1,3 +1,4 @@
+import { data } from 'jquery'
 import './styles/styles.css'
 import './styles/styles.scss'
 
@@ -150,7 +151,7 @@ async function init() {
    let result = await main()
    console.log('ВСЕ API', result);
    var newDate = new Date(result.threeDays.location.localtime)
-
+   console.log('newDATEEEEEEEE', newDate.getMonth());
    //!! console.log(correctTime(newDate));
    //!! console.log(correctDate(newDate));
    //!! showDateTime(newDate);
@@ -206,7 +207,7 @@ async function init() {
    <div class="newRow"><h1>Погода на 3 дня</h1></div>
    <div class="info__day">
    <div class="day__weather">
-   <p>Дата: ${threeDays(result)[0]}</p>
+   <p>Дата: ${correctDate(transformDate(threeDays(result)[0]))} 2021</p>
    <p>Температура: ${unit ? threeDays(result)[1] + ` °С` : threeDays(result)[2] + ` °F`} </p>
    <img src=${threeDays(result)[3]} alt="альтернативный текст">
    </div>
@@ -214,7 +215,7 @@ async function init() {
 
    <div class="info__day">
    <div class="day__weather">
-   <p>Дата: ${threeDays(result)[4]}</p>  
+   <p>Дата: ${correctDate(transformDate(threeDays(result)[4]))} 2021</p>  
    <p>Температура: ${unit ? threeDays(result)[5] + ` °С` : threeDays(result)[6] + ` °F`} </p>
    <img src=${threeDays(result)[7]} alt="альтернативный текст">
    </div>
@@ -222,7 +223,7 @@ async function init() {
 
    <div class="info__day">
    <div class="day__weather">
-   <p>Дата: ${threeDays(result)[8]}</p>
+   <p>Дата: ${correctDate(transformDate(threeDays(result)[8]))} 2021</p>
    <p>Температура: ${unit ? threeDays(result)[9] + ` °С` : threeDays(result)[10] + ` °F`} </p>
    <img src=${threeDays(result)[11]} alt="альтернативный текст">
    </div>
@@ -265,7 +266,7 @@ async function init() {
       <div class="newRow"><h1>Weather for three day</h1></div>
    <div class="info__day">
    <div class="day__weather">
-   <p>Date: ${threeDays(result)[0]}</p>
+   <p>Date: ${correctDate(transformDate(threeDays(result)[0]))}</p>
    <p>Temperature: ${unit ? threeDays(result)[1] + ` °С` : threeDays(result)[2] + ` °F`} </p>
    <img src=${threeDays(result)[3]} alt="альтернативный текст">
    </div>
@@ -273,7 +274,7 @@ async function init() {
 
    <div class="info__day">
    <div class="day__weather">
-   <p>Date: ${threeDays(result)[4]}</p>  
+   <p>Date: ${correctDate(transformDate(threeDays(result)[4]))}</p>  
    <p>Temperature: ${unit ? threeDays(result)[5] + ` °С` : threeDays(result)[6] + ` °F`} </p>
    <img src=${threeDays(result)[7]} alt="альтернативный текст">
    </div>
@@ -281,7 +282,7 @@ async function init() {
 
    <div class="info__day">
    <div class="day__weather">
-   <p>Date: ${threeDays(result)[8]}</p>
+   <p>Date: ${correctDate(transformDate(threeDays(result)[8]))}</p>
    <p>Temperature: ${unit ? threeDays(result)[9] + ` °С` : threeDays(result)[10] + ` °F`} </p>
    <img src=${threeDays(result)[11]} alt="альтернативный текст">
    </div>
@@ -307,11 +308,56 @@ function correctTime(time) {
    return `${(h < 10 ? "0" : "") + h}:${(m < 10 ? "0" : "") + m}:${(s < 10 ? "0" : "") + s}`;
 }
 function correctDate(date) {
+   console.log('ЭТО DATA', date);
+   let xxx = date.toString()
+   xxx = xxx.substr(0, 3);
+   console.log('ЭТО СТРОКА', xxx.substr(0, 3));
    let y = date.getFullYear(),
       m = date.getMonth(),
       d = date.getDate();
-   return `${(d)}-${m < 10 ? `0${m + 1}` : ""}-${(y)}`;
+   ///////////////////////
+   function dateM(data, data2) {
+      let month = ['Января', 'Фервраля', 'Марта', 'Апреля', 'Майя', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря']
+      let dayEng = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+      let dayRus = ["Пон", "Вт", "Ср", "Чет", "Пят", "Сб", "Вс"]
+
+      let newMonth = []
+      let newDay = []
+      for (let i = 0; i < month.length; i++) {
+         if (data == i) {
+            newMonth.push(month[i])
+            console.log(newMonth);
+         }
+      }
+
+      for (let i = 0; i < dayEng.length; i++) {
+         if (data2 == dayEng[i]) {
+            newDay.push(dayRus[i])
+            console.log(newDay);
+         }
+         console.log('ЦИКЛ', data2);
+      }
+
+      return [newDay[0], newMonth[0]]
+   }
+   /////////////
+   m = dateM(date.getMonth(), xxx)
+   // m = dateM(date.getMonth(), xxx)
+   // return `${(m[0])} ${d} ${m[1]} ${(y)}`;
+   return `${(m[0])} ${d} ${m[1]} `;
+
 }
+
+
+function transformDate(data) {
+   data += " 00:00:00"
+   // console.log('Трансформированная дата', newDate);
+   var newDate = new Date(data)
+   console.log('Трансформированная дата', newDate);
+   return newDate
+
+}
+
 function showDateTime(time) {
    //**СДЕЛАТЬ ТАЙМЕР */
 }
@@ -407,6 +453,10 @@ async function ip() {
    qCity = location.city
    newCity(qCity)
 }
+
+
+
+
 
 
 // Weather на несколько дней
