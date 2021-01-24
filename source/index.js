@@ -44,7 +44,7 @@ document.querySelector('#btnSearch').addEventListener('click', (e) => {
 
 document.querySelector('#unit').addEventListener('click', (e) => {
    unit = !unit
-   savetoLacalStorage(unit)
+   savetoLacalStorage2()
    main()
    init()
 })
@@ -185,7 +185,7 @@ async function init() {
       <h1>Погода сегодня</h1>
       <div class='today1'>
       <div class='today2'>
-      <p>Страна: ${lang ? result.rus : result.threeDays.location.country}</p>
+      <p>Страна: ${lang ? result.threeDays.location.country : result.threeDays.location.country}</p>
       <p>Город: ${qCity == null ? result.newcity : qCity}</p>
       <p>City: ${result.threeDays.location.name}</p>
       <p>Время: ${correctTime(newDate)}</p>
@@ -299,7 +299,45 @@ async function init() {
    }
 }
 
-init();
+// init();
+
+async function init2() {
+
+   lang = localStorage.getItem('locper')
+   // console.log('langggggggggggggggggggggg', lang);
+
+   if (lang == 'false') {
+      // console.log('TRUE');
+      lang = false
+   } else {
+      // console.log('FALSE');
+      lang = true
+   }
+
+   unit = localStorage.getItem('locper2')
+   // console.log('langggggggggggggggggggggg', lang);
+
+   if (unit == 'false') {
+      // console.log('TRUE');
+      unit = false
+   } else {
+      // console.log('FALSE');
+      unit = true
+   }
+
+
+   // console.log(lang);
+   // if (Boolean(lang) == false) {
+   //    console.log('TRUE');
+   // } else {
+   //    console.log('FALSE');
+   // }
+
+   await init()
+
+}
+
+init2()
 
 function correctTime(time) {
    let h = time.getHours(),
@@ -436,6 +474,9 @@ function randomInteger() {
 function savetoLacalStorage() {
    localStorage.setItem('locper', lang.toString());
 }
+function savetoLacalStorage2() {
+   localStorage.setItem('locper2', unit.toString());
+}
 
 function loadtoLacalStorage() {
    lang = localStorage.getItem('locper');
@@ -457,7 +498,12 @@ async function ip() {
 
 
 
+function transforMinut(data) {
+   let num = Number(data)
+   console.log('NUMMMMMM', num / 2.3);
+}
 
+transforMinut('59.9386')
 
 // Weather на несколько дней
 // const secretKey = 'Eh9Zb40UUFyw91jSUze5h7KxNqFlADgt'
