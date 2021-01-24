@@ -37,24 +37,27 @@ let bgImg = ''
 document.querySelector('#btnSearch').addEventListener('click', (e) => {
    searchCity = document.querySelector('#search').value
    newCity(searchCity)
-   main()
-   init()
+   //** */ main()
+   //** */ init()
+   init2()
 })
 
 
 document.querySelector('#unit').addEventListener('click', (e) => {
    unit = !unit
    savetoLacalStorage2()
-   main()
-   init()
+   //** */ main()
+   //** */ init()
+   init2()
 })
 
 document.querySelector('#lang').addEventListener('click', (e) => {
    lang = !lang
    savetoLacalStorage()
    // loadtoLacalStorage()
-   main()
-   init()
+   //** */ main()
+   //** */ init()
+   init2()
 })
 
 document.querySelector('#bg').addEventListener('click', (e) => {
@@ -188,7 +191,7 @@ async function init() {
       <p>Страна: ${lang ? result.threeDays.location.country : result.threeDays.location.country}</p>
       <p>Город: ${qCity == null ? result.newcity : qCity}</p>
       <p>City: ${result.threeDays.location.name}</p>
-      <p>Время: ${correctTime(newDate)}</p>
+      <p class='timeee'>Время: ${correctTime(newDate)}</p>
    <p>Дата: ${correctDate(newDate)}</p>
    </div>
 
@@ -233,7 +236,7 @@ async function init() {
    `
       infoLocation3.innerHTML = `
       <h1>Геолокация</h1>
-      <p>Координаты: ${q}</p>`
+      <p>Координаты: ${transforMinut(q)}</p>`
       document.querySelector('.today__title').after(infoLocation)
       document.querySelector('.next__title').after(infoLocation2)
       document.querySelector('#map').before(infoLocation3)
@@ -292,11 +295,49 @@ async function init() {
    `
       infoLocation3.innerHTML = `
       <h1>Geolocation</h1>
-      <p>Coordinates: ${q}</p>`
+      <p>Coordinates: ${transforMinut(q)}</p>`
       document.querySelector('.today__title').after(infoLocation)
       document.querySelector('.next__title').after(infoLocation2)
       document.querySelector('#map').before(infoLocation3)
    }
+
+   ////////////////////////////////////////////////////////////////////
+   // let uuu = document.querySelector('.timeee')
+   // var newDate2 = new Date(result.threeDays.location.localtime)
+
+   // // console.log(document.querySelector('.time'));
+
+   // // let times = '';
+   // let p = newDate2;
+   // function timerr(time) {
+   //    let h = time.getHours(),
+   //       m = time.getMinutes(),
+   //       s = time.getSeconds(),
+   //       x = ''
+   //    // document.querySelector('.time').innerHTML =
+   //    x = `2021-01-23, ${(h < 10 ? "0" : "") + h}:${(m < 10 ? "0" : "") + m}:${(s++ < 10 ? "0" : "") + s}`;
+
+   //    let newDate3 = new Date(x)
+   //    console.log(newDate3);
+   //    p = newDate3
+   //    // console.log(p);
+   //    uuu.innerHTML = `${(h < 10 ? "0" : "") + h}:${(m < 10 ? "0" : "") + m}:${(s++ < 10 ? "0" : "") + s}`
+   //    // console.log(newDate3);
+   //    // let h1 = newDate3.getHours(),
+   //    //    m1 = newDate3.getMinutes(),
+   //    //    s1 = newDate3.getSeconds();
+   //    // console.log(h1, s1, m1);
+
+   //    // times = newDate3
+   //    // newDate2 = times
+   //    // console.log(times);
+   // }
+   // timerr(newDate2)
+   // let interval = setInterval(() => {
+   //    timerr(p)
+   //    // console.log(times);
+   // }, 1000);
+   /////////////////////////////////////////////////////////////////////
 }
 
 // init();
@@ -333,6 +374,8 @@ async function init2() {
    //    console.log('FALSE');
    // }
 
+   //*
+   changeControlLang()
    await init()
 
 }
@@ -356,6 +399,7 @@ function correctDate(date) {
    ///////////////////////
    function dateM(data, data2) {
       let month = ['Января', 'Фервраля', 'Марта', 'Апреля', 'Майя', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря']
+      let monthEng = ['Jan', 'Feb', 'March', 'Apr', 'May ', 'June', 'Июля', 'July', 'Sep', 'Oct', 'Nov', 'Dec']
       let dayEng = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
       let dayRus = ["Пон", "Вт", "Ср", "Чет", "Пят", "Сб", "Вс"]
 
@@ -363,14 +407,14 @@ function correctDate(date) {
       let newDay = []
       for (let i = 0; i < month.length; i++) {
          if (data == i) {
-            newMonth.push(month[i])
+            lang ? newMonth.push(month[i]) : newMonth.push(monthEng[i])
             console.log(newMonth);
          }
       }
 
       for (let i = 0; i < dayEng.length; i++) {
          if (data2 == dayEng[i]) {
-            newDay.push(dayRus[i])
+            lang ? newDay.push(dayRus[i]) : newDay.push(dayEng[i])
             console.log(newDay);
          }
          console.log('ЦИКЛ', data2);
@@ -498,12 +542,57 @@ async function ip() {
 
 
 
-function transforMinut(data) {
-   let num = Number(data)
-   console.log('NUMMMMMM', num / 2.3);
+// function transforMinut(data) {
+//    let num = Number(data)
+//    console.log('NUMMMMMM', num / 2.3);
+// }
+
+function transforMinut(value) {
+
+   value = value.split(',')
+   // console.log(value);
+   let num = Number(value[0])
+   let result = Math.floor(num) + '° '
+   num = num % 1 * 60
+   result += Math.floor(num) + '\' '
+   num = num % 1 * 60
+   result += Math.floor(num) + '" '
+
+   let num2 = Number(value[1])
+   let result2 = Math.floor(num2) + '° '
+   num2 = num2 % 1 * 60
+   result2 += Math.floor(num) + '\' '
+   num2 = num2 % 1 * 60
+   result2 += Math.floor(num2) + '" '
+
+   if (lang) {
+      return `Широта: ${result} Долгота: ${result2}`
+   } else {
+      return `Latitude: ${result} Longitude: ${result2}`
+   }
+
+   // return "Широта: "+ result + " " + "" + result2
 }
 
-transforMinut('59.9386')
+//!!!!!!!!!!! transforMinut('59.9386,30.3141')
+function changeControlLang() {
+   if (lang) {
+      document.querySelector('#btnSearch').innerHTML = 'Найти'
+      // document.querySelector('#unit').innerHTML = 'Поиск'
+      // document.querySelector('#lang').innerHTML = 'Поиск'
+      document.querySelector('#bg').innerHTML = 'Сменить фон'
+      document.querySelector('#back').innerHTML = 'Мой город'
+   }
+   else {
+      document.querySelector('#btnSearch').innerHTML = 'Search'
+      // document.querySelector('#unit').innerHTML = 'Поиск'
+      // document.querySelector('#lang').innerHTML = 'Поиск'
+      document.querySelector('#bg').innerHTML = 'Change background'
+      document.querySelector('#back').innerHTML = 'My city'
+   }
+
+}
+
 
 // Weather на несколько дней
 // const secretKey = 'Eh9Zb40UUFyw91jSUze5h7KxNqFlADgt'
