@@ -43,7 +43,7 @@ export function transformDate(data) {
    return newDate
 }
 
-export function timer(result, mmm) {
+export function timer(result) {
    let uuu = document.querySelector('.timeee')
    var newDate2 = new Date(result.threeDays.location.localtime)
    let p = newDate2;
