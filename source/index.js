@@ -255,7 +255,7 @@ async function init2() {
 init2()
 
 async function newCity(name) {
-   let seacrhGeo = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${name}&key=2d4dd65ac76a49cd8dffa74cab0fd692&pretty=1&no_annotations=1/`)
+   let seacrhGeo = await fetch(`../https://api.opencagedata.com/geocode/v1/json?q=${name}&key=2d4dd65ac76a49cd8dffa74cab0fd692&pretty=1&no_annotations=1`)
 
       .then(
          (response) => response.json()
