@@ -45,7 +45,7 @@ document.querySelector('#back').addEventListener('click', (e) => {
 })
 
 async function main() {
-   let location = await fetch(`https://ipinfo.io/json?token=efca0f8ab010de`)
+   let location = await fetch(`https://ipinfo.io/json?token=efca0f8ab010de/https://flamboyant-rosalind-326379.netlify.app`)
       .then(
          (response) => response.json()
       ).then(
