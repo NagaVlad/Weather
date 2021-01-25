@@ -52,7 +52,7 @@ async function main() {
          (jsonResponse) => jsonResponse
       )
 
-   let newCity2 = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${location.city}&key=2d4dd65ac76a49cd8dffa74cab0fd692&pretty=1&no_annotations=1`)
+   let newCity2 = await fetch(`api.opencagedata.com/geocode/v1/json?q=${location.city}&key=2d4dd65ac76a49cd8dffa74cab0fd692&pretty=1&no_annotations=1/https://ipinfo.io/json?token=efca0f8ab010de`)
       .then(
          (response) => response.json()
       ).then(
