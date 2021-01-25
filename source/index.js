@@ -63,7 +63,7 @@ async function main() {
       await ip()
    }
 
-   let threeDays = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${q}&days=${3}`)
+   let threeDays = await fetch(`api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${q}&days=${3}/https://ipinfo.io/json?token=efca0f8ab010de`)
       .then(
          (response) => response.json()
       ).then(
