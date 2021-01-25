@@ -45,10 +45,10 @@ document.querySelector('#back').addEventListener('click', (e) => {
 })
 
 async function main() {
-   let location = await fetch(`https://ipinfo2.io/json?token=${token}`,
+   let location = await fetch(`https://ipinfo.io/json?token=${token}`,
       {
          headers: {
-            host: 'ipinfo2.io',
+            host: 'ipinfo.io',
             origin: 'https://flamboyant-rosalind-326379.netlify.app'
          }
       })
