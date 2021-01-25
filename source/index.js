@@ -57,8 +57,10 @@ async function main() {
       .then(
          (response) => response.json()
       ).then(
+
          (jsonResponse) => jsonResponse
       )
+   console.log(location);
 
    let newCity2 = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${location.city}&key=2d4dd65ac76a49cd8dffa74cab0fd692&pretty=1&no_annotations=1`)
       .then(
