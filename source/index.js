@@ -1,7 +1,7 @@
 import { data } from 'jquery'
 import './styles/styles.css'
 import './styles/styles.scss'
-import { correctTime, correctDate, transformDate } from './dateTime.js'
+import { correctTime, correctDate, transformDate, showTime } from './dateTime.js'
 
 // import { timer } from './dateTime.js'
 
@@ -207,42 +207,30 @@ async function init() {
       document.querySelector('#map').before(infoLocation3)
    }
 
-   let uuu = document.querySelector('.timeee')
-   console.log('шАГ1', uuu);
+   // let uuu = document.querySelector('.timeee')
+   // var newDate2 = new Date(result.threeDays.location.localtime)
+   // let p = newDate2;
+   // function timerr(time) {
+   //    p.setSeconds(new Date().getSeconds())
+   //    p.setMinutes(new Date().getMinutes())
+   //    let h = time.getHours(),
+   //       m = time.getMinutes(),
+   //       s = time.getSeconds(),
+   //       x = ''
+   //    console.log(`${h}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s}`);
+   //    if (lang) {
+   //       uuu.innerHTML = `Время: ${h < 10 ? `0${h}` : `${h}`}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s} `
+   //    } else {
+   //       uuu.innerHTML = `Time: ${h < 10 ? `0${h}` : `${h}`}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s} `
+   //    }
+   // }
 
-   var newDate2 = new Date(result.threeDays.location.localtime)
-   let p = newDate2;
 
-   console.log('Шаг 2', p);
+   // mmm = setInterval(() => {
+   //    timerr(p)
+   // }, 1000);
 
-   function timerr(time) {
-      p.setSeconds(new Date().getSeconds())
-      p.setMinutes(new Date().getMinutes())
-      let h = time.getHours(),
-         m = time.getMinutes(),
-         s = time.getSeconds(),
-         x = ''
-
-      console.log(`${h}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s}`);
-      // x = `2021-01-23, ${(h < 10 ? "0" : "") + h}:${(m < 10 ? "0" : "") + m}:${(s < 10 ? "0" : "")}`;
-      // console.log(time);
-      // let newDate3 = new Date(x)
-      // console.log(newDate3);
-      // p = newDate3
-      if (lang) {
-         uuu.innerHTML = `Время: ${h < 10 ? `0${h}` : `${h}`}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s} `
-      } else {
-         uuu.innerHTML = `Time: ${h < 10 ? `0${h}` : `${h}`}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s} `
-      }
-      // uuu.innerHTML = `${ (h < 10 ? "0" : "") + h }: ${ (m < 10 ? "0" : "") + m }: ${ (s > 59 ? m + 1 : s++) } `
-   }
-   // timerr(p)
-
-   mmm = setInterval(() => {
-      timerr(p)
-   }, 1000);
-   let newTIME = new Date().getSeconds()
-   // console.log(newTIME);
+   showTime(result, mmm, lang)
 }
 
 async function init2() {

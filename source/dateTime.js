@@ -43,26 +43,25 @@ export function transformDate(data) {
    return newDate
 }
 
-export function timer(result) {
+
+export function showTime(result, mmm, lang) {
    let uuu = document.querySelector('.timeee')
    var newDate2 = new Date(result.threeDays.location.localtime)
    let p = newDate2;
-
    function timerr(time) {
+      p.setSeconds(new Date().getSeconds())
+      p.setMinutes(new Date().getMinutes())
       let h = time.getHours(),
          m = time.getMinutes(),
-         s = time.getSeconds(),
-         x = ''
+         s = time.getSeconds()
 
-      x = `2021-01-23, ${(h < 10 ? "0" : "") + h}:${(m < 10 ? "0" : "") + m}:${(s++ < 10 ? "0" : "") + s}`;
-
-      let newDate3 = new Date(x)
-      console.log(newDate3);
-      p = newDate3
-      uuu.innerHTML = `${(h < 10 ? "0" : "") + h}:${(m < 10 ? "0" : "") + m}:${(s++ < 10 ? "0" : "") + s}`
-
+      if (lang) {
+         uuu.innerHTML = `Время: ${h < 10 ? `0${h}` : `${h}`}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s} `
+      } else {
+         uuu.innerHTML = `Time: ${h < 10 ? `0${h}` : `${h}`}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s} `
+      }
    }
-   timerr(newDate2)
+
    mmm = setInterval(() => {
       timerr(p)
    }, 1000);
