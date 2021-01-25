@@ -2,6 +2,9 @@ import { data } from 'jquery'
 import './styles/styles.css'
 import './styles/styles.scss'
 
+
+let start = null;
+
 //* Результат блока
 let infoLocation = document.createElement('div')
 let infoLocation2 = document.createElement('div')
@@ -12,7 +15,7 @@ const token = 'efca0f8ab010de';
 
 // Weather for three fay
 const apiKey = '08d6846f461f4edaa9a91251212101'
-let q = '59.9386,30.3141'
+let q = ''
 let qCity = null
 // Images API
 const accessKey = 'ck5s7v_cYmqDic-L76jxDtX7oUZbkRUv7dQzzeM8o_A'
@@ -85,6 +88,7 @@ async function main() {
       )
 
 
+
    let newCity2 = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${location.city}&key=2d4dd65ac76a49cd8dffa74cab0fd692&pretty=1&no_annotations=1`)
       .then(
          (response) => response.json()
@@ -92,6 +96,10 @@ async function main() {
       ).then(
          (jsonResponse) => jsonResponse
       )
+
+   if (start === null) {
+      await ip()
+   }
 
    // newCity(location.city)
 
@@ -373,8 +381,6 @@ async function init2() {
    // } else {
    //    console.log('FALSE');
    // }
-
-   //*
    changeControlLang()
    await init()
 
@@ -534,6 +540,7 @@ async function ip() {
          (jsonResponse) => jsonResponse
       )
    q = location.loc
+   start = location.loc
    // ...
    qCity = location.city
    newCity(qCity)
