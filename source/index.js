@@ -45,7 +45,14 @@ document.querySelector('#back').addEventListener('click', (e) => {
 })
 
 async function main() {
-   let location = await fetch(`https://ipinfo.io/json?token=${token}`)
+   let location = await fetch(`https://ipinfo.io/json?token=${token}`,
+      {
+         method: get,
+         headers: {
+            host: 'ipinfo.io',
+            origin: 'https://flamboyant-rosalind-326379.netlify.app'
+         }
+      })
       .then(
          (response) => response.json()
       ).then(
@@ -54,13 +61,7 @@ async function main() {
 
    // console.log(location);
 
-   let newCity2 = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${location.city}&key=2d4dd65ac76a49cd8dffa74cab0fd692&pretty=1&no_annotations=1`, {
-      method: get,
-      headers: {
-         host: 'api.weatherapi.com',
-         origin: 'https://flamboyant-rosalind-326379.netlify.app'
-      }
-   })
+   let newCity2 = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${location.city}&key=2d4dd65ac76a49cd8dffa74cab0fd692&pretty=1&no_annotations=1`)
       .then(
          (response) => response.json()
       ).then(
