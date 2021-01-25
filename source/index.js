@@ -47,7 +47,6 @@ document.querySelector('#back').addEventListener('click', (e) => {
 async function main() {
    let location = await fetch(`https://ipinfo.io/json?token=${token}`,
       {
-         method: get,
          headers: {
             host: 'ipinfo.io',
             origin: 'https://flamboyant-rosalind-326379.netlify.app'
@@ -59,37 +58,9 @@ async function main() {
          (jsonResponse) => jsonResponse
       )
 
-   // console.log(location);
+   console.log(location);
 
-   let newCity2 = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${location.city}&key=2d4dd65ac76a49cd8dffa74cab0fd692&pretty=1&no_annotations=1`)
-      .then(
-         (response) => response.json()
-      ).then(
-         (jsonResponse) => jsonResponse
-      )
 
-   if (start === null) {
-      await ip()
-   }
-
-   let threeDays = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${q}&days=${3}`)
-      .then(
-         (response) => response.json()
-      ).then(
-         (jsonResponse) => jsonResponse
-      )
-
-   let newcity = newCity2.results[0].components.city
-   let rus = newCity2.results[0].components.country
-   let eng = threeDays.location.country
-
-   let res = {
-      location,
-      threeDays,
-      newcity,
-      rus,
-      eng
-   }
    return res
 }
 
