@@ -9,6 +9,8 @@ import { savetoLocalStorage, savetoLocalStorage2 } from './localStorage.js'
 import { getBgImg } from './background.js'
 import { threeDays } from './weatherThreeDays.js'
 
+import { init2 } from './init.js'
+
 let start = null;
 
 //* Результат блока
@@ -36,20 +38,20 @@ let searchCity = null
 
 document.querySelector('#btnSearch').addEventListener('click', (e) => {
    searchCity = document.querySelector('#search').value
-   newCity(searchCity)
-   init2()
+   newCity(searchCity, q, qCity)
+   init2(lang, unit, init, changeControlLang)
 })
 
 document.querySelector('#unit').addEventListener('click', (e) => {
    unit = !unit
    savetoLocalStorage2(unit)
-   init2()
+   init2(lang, unit, init, changeControlLang)
 })
 
 document.querySelector('#lang').addEventListener('click', (e) => {
    lang = !lang
    savetoLocalStorage(lang)
-   init2()
+   init2(lang, unit, init, changeControlLang)
 })
 
 document.querySelector('#bg').addEventListener('click', (e) => {
@@ -58,12 +60,11 @@ document.querySelector('#bg').addEventListener('click', (e) => {
 
 document.querySelector('#back').addEventListener('click', (e) => {
    ip()
-   newCity(searchCity)
+   newCity(searchCity, q, qCity)
    init()
 })
 
 async function main() {
-   //*Начальное положение
    let location = await fetch(`https://ipinfo.io/json?token=${token}`)
       .then(
          (response) => response.json()
@@ -82,7 +83,6 @@ async function main() {
       await ip()
    }
 
-   //*Погода сейчас и на 3 дня
    let threeDays = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${q}&days=${3}`)
       .then(
          (response) => response.json()
@@ -94,24 +94,12 @@ async function main() {
    let rus = newCity2.results[0].components.country
    let eng = threeDays.location.country
 
-
-   //*Получить изображение
-   // let bgImage = await fetch(`https://api.unsplash.com/photos/random?client_id=${accessKey}`)
-   //    .then(
-   //       (response) => response.json()
-
-   //    ).then(
-   //       (jsonResponse) => jsonResponse
-   //    )
-
-
    let res = {
       location,
       threeDays,
       newcity,
       rus,
       eng
-      // bgImage,
    }
    return res
 }
@@ -280,30 +268,7 @@ async function init() {
    /////////////////////////////////////////////////////////////////////
 }
 
-
-
-async function init2() {
-   lang = localStorage.getItem('locper')
-
-   if (lang == 'false') {
-      lang = false
-   } else {
-      lang = true
-   }
-
-   unit = localStorage.getItem('locper2')
-
-   if (unit == 'false') {
-      unit = false
-   } else {
-      unit = true
-   }
-
-   changeControlLang(lang)
-   await init()
-}
-
-init2()
+init2(lang, unit, init, changeControlLang)
 
 async function newCity(name) {
    let seacrhGeo = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${name}&key=2d4dd65ac76a49cd8dffa74cab0fd692&pretty=1&no_annotations=1`)
@@ -312,10 +277,8 @@ async function newCity(name) {
       ).then(
          (jsonResponse) => jsonResponse
       )
-   // console.log('!!!!!!!!!!!!!!', seacrhGeo);
    q = `${seacrhGeo.results[0].geometry.lat},${seacrhGeo.results[0].geometry.lng}`
    qCity = `${seacrhGeo.results[0].components.city}`
-   // qCity = `${seacrhGeo.results[0].components.city}`
    console.log('Координаты Новой страны', q);
    return seacrhGeo
 }
@@ -329,7 +292,6 @@ async function ip() {
       )
    q = location.loc
    start = location.loc
-   // ...
    qCity = location.city
    newCity(qCity)
 }

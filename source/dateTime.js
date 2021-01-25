@@ -42,3 +42,28 @@ export function transformDate(data) {
    var newDate = new Date(data)
    return newDate
 }
+
+export function timer(result) {
+   let uuu = document.querySelector('.timeee')
+   var newDate2 = new Date(result.threeDays.location.localtime)
+   let p = newDate2;
+
+   function timerr(time) {
+      let h = time.getHours(),
+         m = time.getMinutes(),
+         s = time.getSeconds(),
+         x = ''
+
+      x = `2021-01-23, ${(h < 10 ? "0" : "") + h}:${(m < 10 ? "0" : "") + m}:${(s++ < 10 ? "0" : "") + s}`;
+
+      let newDate3 = new Date(x)
+      console.log(newDate3);
+      p = newDate3
+      uuu.innerHTML = `${(h < 10 ? "0" : "") + h}:${(m < 10 ? "0" : "") + m}:${(s++ < 10 ? "0" : "") + s}`
+   }
+   timerr(newDate2)
+   let interval = setInterval(() => {
+      timerr(p)
+   }, 1000);
+}
+

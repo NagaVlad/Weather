@@ -8,6 +8,8 @@
 //       )
 //    console.log('!!!!!!!!!!!!!!', seacrhGeo);
 //    q = `${seacrhGeo.results[0].geometry.lat},${seacrhGeo.results[0].geometry.lng}`
+//    console.log(q);
 //    qCity = `${seacrhGeo.results[0].components.city}`
+//    console.log(qCity);
 //    return seacrhGeo
 // }
