@@ -45,9 +45,9 @@ document.querySelector('#back').addEventListener('click', (e) => {
 })
 
 async function main() {
-   http://api.weatherapi.com/v1/forecast.json?key=08d6846f461f4edaa9a91251212101&q=59.9386,30.3141&days=3/https://flamboyant-rosalind-326379.netlify.app
+   // http://api.weatherapi.com/v1/forecast.json?key=08d6846f461f4edaa9a91251212101&q=59.9386,30.3141&days=3/https://flamboyant-rosalind-326379.netlify.app
    let location = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=08d6846f461f4edaa9a91251212101&q=59.9386,30.3141&days=3`, {
-      path: ''
+      path: '/'
    })
       // let location = await fetch(`flamboyant-rosalind-326379.netlify.apphttps://ipinfo.io/json?token=efca0f8ab010de`)
       .then(
