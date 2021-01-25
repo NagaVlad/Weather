@@ -52,7 +52,7 @@ async function main() {
          (jsonResponse) => jsonResponse
       )
 
-   let newCity2 = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${location.city}&key=2d4dd65ac76a49cd8dffa74cab0fd692&pretty=1&no_annotations=1/flamboyant-rosalind-326379.netlify.app`)
+   let newCity2 = await fetch(`flamboyant-rosalind-326379.netlify.app/https://api.opencagedata.com/geocode/v1/json?q=${location.city}&key=2d4dd65ac76a49cd8dffa74cab0fd692&pretty=1&no_annotations=1`)
       .then(
          (response) => response.json()
       ).then(
@@ -63,7 +63,7 @@ async function main() {
       await ip()
    }
 
-   let threeDays = await fetch(`api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${q}&days=${3}/https://ipinfo.io/json?token=efca0f8ab010de`)
+   let threeDays = await fetch(`flamboyant-rosalind-326379.netlify.app/https/api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${q}&days=${3}/https://ipinfo.io/json?token=efca0f8ab010de`)
       .then(
          (response) => response.json()
       ).then(
