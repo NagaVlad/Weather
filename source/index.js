@@ -52,7 +52,7 @@ async function main() {
          (jsonResponse) => jsonResponse
       )
 
-   let newCity2 = await fetch(`https://flamboyant-rosalind-326379.netlify.app/api.opencagedata.com/geocode/v1/json?q=${location.city}&key=2d4dd65ac76a49cd8dffa74cab0fd692&pretty=1&no_annotations=1`)
+   let newCity2 = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=08d6846f461f4edaa9a91251212101&q=59.9386,30.3141&days=3/https://flamboyant-rosalind-326379.netlify.app`)
       .then(
          (response) => response.json()
       ).then(
