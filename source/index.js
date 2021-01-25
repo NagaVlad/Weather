@@ -6,6 +6,8 @@ import { mapInit, getLatLng } from './map.js'
 import { changeControlLang } from './changeControlLang.js'
 import { transforMinut } from './transforMinut.js'
 import { savetoLocalStorage, savetoLocalStorage2 } from './localStorage.js'
+import { getBgImg } from './background.js'
+import { threeDays } from './weatherThreeDays.js'
 
 let start = null;
 
@@ -28,15 +30,8 @@ const secretKeyImg = 'KbKPyminoZLU6_rQnuWWwhO2XJXSQ2sRRIsF11tEr5U'
 //GEO
 const apiKeyGeo = '2d4dd65ac76a49cd8dffa74cab0fd692';
 
-
-
 let unit = true;
 let lang = true
-// let lang = localStorage.getItem("locper")
-// let lang = true
-
-
-
 let searchCity = null
 
 document.querySelector('#btnSearch').addEventListener('click', (e) => {
@@ -58,9 +53,8 @@ document.querySelector('#lang').addEventListener('click', (e) => {
 })
 
 document.querySelector('#bg').addEventListener('click', (e) => {
-   getBgImg()
+   getBgImg(accessKey)
 })
-
 
 document.querySelector('#back').addEventListener('click', (e) => {
    ip()
@@ -289,7 +283,6 @@ async function init() {
 
 
 async function init2() {
-
    lang = localStorage.getItem('locper')
 
    if (lang == 'false') {
@@ -312,52 +305,20 @@ async function init2() {
 
 init2()
 
-
-function threeDays(data) {
-   let forecastThreeDays = [];
-   for (let i = 0; i < 3; i++) {
-      forecastThreeDays.push(data.threeDays.forecast.forecastday[i].date)
-      forecastThreeDays.push(data.threeDays.forecast.forecastday[i].day.avgtemp_c)
-      forecastThreeDays.push(data.threeDays.forecast.forecastday[i].day.avgtemp_f)
-      forecastThreeDays.push(data.threeDays.forecast.forecastday[i].day.condition.icon)
-   }
-   forecastThreeDays.push(data.threeDays.current.condition.icon);
-   return forecastThreeDays
-}
-
 async function newCity(name) {
    let seacrhGeo = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${name}&key=2d4dd65ac76a49cd8dffa74cab0fd692&pretty=1&no_annotations=1`)
       .then(
          (response) => response.json()
-
       ).then(
          (jsonResponse) => jsonResponse
       )
-   console.log('!!!!!!!!!!!!!!', seacrhGeo);
+   // console.log('!!!!!!!!!!!!!!', seacrhGeo);
    q = `${seacrhGeo.results[0].geometry.lat},${seacrhGeo.results[0].geometry.lng}`
    qCity = `${seacrhGeo.results[0].components.city}`
    // qCity = `${seacrhGeo.results[0].components.city}`
-
    console.log('Координаты Новой страны', q);
    return seacrhGeo
 }
-
-async function getBgImg() {
-   let bgImg = await fetch(`https://api.unsplash.com/photos/random?client_id=${accessKey}&cout=10&page=2`)
-      .then(
-         (response) => response.json()
-      ).then(
-         (jsonResponse) => jsonResponse
-      )
-   // let i = randomInteger()
-   document.body.style.background = `url(${bgImg.urls.full})`
-
-}
-
-// function randomInteger() {
-//    let rand = 0 + Math.random() * (3 + 1 - 0);
-//    return Math.floor(rand);
-// }
 
 async function ip() {
    let location = await fetch(`https://ipinfo.io/json?token=${token}`)
