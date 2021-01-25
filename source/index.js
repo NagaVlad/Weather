@@ -2,6 +2,9 @@ import { data } from 'jquery'
 import './styles/styles.css'
 import './styles/styles.scss'
 import { correctTime, correctDate, transformDate } from './dateTime.js'
+
+// import { timer } from './dateTime.js'
+
 import { mapInit, getLatLng } from './map.js'
 import { changeControlLang } from './changeControlLang.js'
 import { transforMinut } from './transforMinut.js'
@@ -12,7 +15,7 @@ import { token, apiKey, accessKey, secretKeyImg, apiKeyGeo } from './tokens.js'
 import { infoLocation, infoLocation2, infoLocation3 } from './state.js'
 
 let start = null, q = '', qCity = null, unit = true, lang = true, searchCity = null
-
+let mmm = ''
 document.querySelector('#btnSearch').addEventListener('click', (e) => {
    searchCity = document.querySelector('#search').value
    newCity(searchCity, q, qCity)
@@ -82,6 +85,7 @@ async function main() {
 }
 
 async function init() {
+   mmm = clearInterval(mmm)
    let result = await main()
    var newDate = new Date(result.threeDays.location.localtime)
    let latLng = getLatLng(result)
@@ -91,6 +95,8 @@ async function init() {
    // document.body.style.background = `url(${result.bgImage.urls.regular})`//raw //thumb
    // console.log('ПРОГНОЗ НА 3 ДНЯ', threeDays(result));
 
+   newDate.setSeconds(new Date().getSeconds())
+   newDate.setMinutes(new Date().getMinutes())
    if (lang == true) {
       infoLocation.classList.add('blocks__today')
       infoLocation2.classList.add('next__info')
@@ -100,7 +106,7 @@ async function init() {
       <div class='today2'>
       <p>Страна: ${lang ? result.threeDays.location.country : result.threeDays.location.country}</p>
       <p>Город: ${qCity == null ? result.newcity : qCity}</p>
-      <p>City: ${result.threeDays.location.name}</p>
+
       <p class='timeee'>Время: ${correctTime(newDate)}</p>
       <p>Дата: ${correctDate(newDate, lang)}</p>
       </div>
@@ -154,8 +160,8 @@ async function init() {
       <div class='today2'>
       <p>Country: ${lang ? result.rus : result.threeDays.location.country}</p>
       <p>City: ${qCity == null ? result.newcity : qCity}</p>
-      <p>City2: ${result.threeDays.location.name}</p>
-      <p>Time: ${correctTime(newDate)}</p>
+     
+      <p class='timeee'>Time: ${correctTime(newDate)}</p>
       <p>Date: ${correctDate(newDate, lang)}</p>
       </div>
       <div class="today2">
@@ -200,6 +206,43 @@ async function init() {
       document.querySelector('.next__title').after(infoLocation2)
       document.querySelector('#map').before(infoLocation3)
    }
+
+   let uuu = document.querySelector('.timeee')
+   console.log('шАГ1', uuu);
+
+   var newDate2 = new Date(result.threeDays.location.localtime)
+   let p = newDate2;
+
+   console.log('Шаг 2', p);
+
+   function timerr(time) {
+      p.setSeconds(new Date().getSeconds())
+      p.setMinutes(new Date().getMinutes())
+      let h = time.getHours(),
+         m = time.getMinutes(),
+         s = time.getSeconds(),
+         x = ''
+
+      console.log(`${h}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s}`);
+      // x = `2021-01-23, ${(h < 10 ? "0" : "") + h}:${(m < 10 ? "0" : "") + m}:${(s < 10 ? "0" : "")}`;
+      // console.log(time);
+      // let newDate3 = new Date(x)
+      // console.log(newDate3);
+      // p = newDate3
+      if (lang) {
+         uuu.innerHTML = `Время: ${h < 10 ? `0${h}` : `${h}`}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s} `
+      } else {
+         uuu.innerHTML = `Time: ${h < 10 ? `0${h}` : `${h}`}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s} `
+      }
+      // uuu.innerHTML = `${ (h < 10 ? "0" : "") + h }: ${ (m < 10 ? "0" : "") + m }: ${ (s > 59 ? m + 1 : s++) } `
+   }
+   // timerr(p)
+
+   mmm = setInterval(() => {
+      timerr(p)
+   }, 1000);
+   let newTIME = new Date().getSeconds()
+   // console.log(newTIME);
 }
 
 async function init2() {

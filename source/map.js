@@ -9,8 +9,6 @@ export function mapInit(data) {
    });
 }
 
-
-
 export function getLatLng(data) {
    let geoInfo = []
    geoInfo.push(data.threeDays.location.lon)

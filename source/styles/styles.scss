@@ -26,24 +26,19 @@ h1 {
 }
 
 .blocks {
-   // margin-top: 5%;
    display: flex;
    flex-direction: row;
    flex-wrap: wrap;
    justify-content: center;
-   // align-items: center;
    margin-left: 5%;
 }
 
-//!!control
 .blocks__control {
    flex: 0 0 10%;
    display: flex;
    flex-direction: column;
    justify-content: center;
-   // align-self: center;
    text-align: center;
-   // border: 1px solid black;
 }
 
 .control__btn {
@@ -58,31 +53,23 @@ h1 {
    justify-content: space-around;
 }
 
-//!!today
 .blocks__today {
    flex: 1 0 30%;
    display: flex;
    flex-direction: column;
    justify-content: center;
-   // align-self: flex-start;
 }
 
 .blocks__next {
    flex: 1 0 20%;
    display: flex;
    flex-direction: column;
-   // flex-direction: row;
-   // align-items: center;
-}
-
-.next__title {
-   // flex: 1 1 100%;
 }
 
 .blocks__geo {
    flex: 1 1 50%;
 }
-//КНОПКИ
+
 #search {
    margin-top: 5px;
 }
@@ -94,7 +81,6 @@ h1 {
    color: rgb(2, 2, 2);
    padding: 8px 16px;
    font-size: 16px;
-
    margin-bottom: 5px;
 }
 .button:hover {
@@ -121,8 +107,6 @@ h1 {
    flex-direction: row;
    flex-wrap: wrap;
    flex: 1 1 40%;
-   // flex: 1 1 40%;
-   // justify-content: center;
 }
 
 .info__day:last-child {
@@ -139,10 +123,6 @@ h1 {
 
 .today2 {
    margin-left: 10%;
-}
-
-.day__weather {
-   // flex: 1 1 50%;
 }
 
 .next__info {
