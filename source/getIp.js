@@ -1,4 +1,4 @@
-// async function ip(token, q, start, newCity, qCity) {
+// export async function ip(token, q, start, newCity, qCity) {
 //    let location = await fetch(`https://ipinfo.io/json?token=${token}`)
 //       .then(
 //          (response) => response.json()
