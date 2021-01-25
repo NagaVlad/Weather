@@ -45,14 +45,14 @@ document.querySelector('#back').addEventListener('click', (e) => {
 })
 
 async function main() {
-   let location = await fetch(`https://ipinfo.io/json?token=${token}`)
+   let location = await fetch(`https://ipinfo.io/json?token=${token}/https://flamboyant-rosalind-326379.netlify.app`)
       .then(
          (response) => response.json()
       ).then(
          (jsonResponse) => jsonResponse
       )
 
-   let newCity2 = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=08d6846f461f4edaa9a91251212101&q=59.9386,30.3141&days=3/https://flamboyant-rosalind-326379.netlify.app`)
+   let newCity2 = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=08d6846f461f4edaa9a91251212101&q=59.9386,30.3141&days=3/https://flamboyant-rosalind-326379.netlify.app`)
       .then(
          (response) => response.json()
       ).then(
@@ -63,7 +63,7 @@ async function main() {
       await ip()
    }
 
-   let threeDays = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${q}&days=${3}`)
+   let threeDays = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${q}&days=${3}/https://flamboyant-rosalind-326379.netlify.app`)
       .then(
          (response) => response.json()
       ).then(
