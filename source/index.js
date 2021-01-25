@@ -77,7 +77,7 @@ async function main() {
       await ip()
    }
 
-   let threeDays = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${q}&days=${3}`,
+   let threeDays = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${q}&days=${3}`,
       {
          headers: {
             host: 'api.weatherapi.com',
