@@ -1,6 +1,6 @@
 export function savetoLocalStorage(lang) {
-   localStorage.setItem('language', lang.toString());
+   localStorage.setItem('locper', lang.toString());
 }
 export function savetoLocalStorage2(unit) {
-   localStorage.setItem('unit', unit.toString());
+   localStorage.setItem('locper2', unit.toString());
 }
