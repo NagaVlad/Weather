@@ -1,24 +1,20 @@
-import { data } from 'jquery'
 import './styles/styles.css'
 import './styles/styles.scss'
 import { correctTime, correctDate, transformDate, showTime } from './dateTime.js'
-
-// import { timer } from './dateTime.js'
-
 import { mapInit, getLatLng } from './map.js'
 import { changeControlLang } from './changeControlLang.js'
 import { transforMinut } from './transforMinut.js'
 import { savetoLocalStorage, savetoLocalStorage2 } from './localStorage.js'
 import { getBgImg } from './background.js'
 import { threeDays } from './weatherThreeDays.js'
-import { token, apiKey, accessKey, secretKeyImg, apiKeyGeo } from './tokens.js'
-import { infoLocation, infoLocation2, infoLocation3 } from './state.js'
+import { token, apiKey, accessKey } from './tokens.js'
+import { blockWeatherToDay, blockWatherThreeDays, blockGeolocation } from './state.js'
 
-let start = null, q = '', qCity = null, unit = true, lang = true, searchCity = null
-let inter = ''
+let startLocation = null, coordinates = '', coordinatesCity = null, unit = true, lang = true, searchCity = null
+let interval = ''
 document.querySelector('#btnSearch').addEventListener('click', (e) => {
    searchCity = document.querySelector('#search').value
-   newCity(searchCity, q, qCity)
+   newCity(searchCity, coordinates, coordinatesCity)
    init2()
 })
 
@@ -40,7 +36,7 @@ document.querySelector('#bg').addEventListener('click', (e) => {
 
 document.querySelector('#back').addEventListener('click', (e) => {
    ip()
-   newCity(searchCity, q, qCity)
+   newCity(searchCity, coordinates, coordinatesCity)
    init()
 })
 
@@ -60,7 +56,7 @@ async function main() {
 
    console.log(location);
 
-   let newCity2 = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${location.city}&key=2d4dd65ac76a49cd8dffa74cab0fd692&pretty=1&no_annotations=1`,
+   let cityFromApi = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${location.city}&key=2d4dd65ac76a49cd8dffa74cab0fd692&pretty=1&no_annotations=1`,
       {
          headers: {
             host: 'api.opencagedata.com',
@@ -73,11 +69,11 @@ async function main() {
          (jsonResponse) => jsonResponse
       )
 
-   if (start === null) {
+   if (startLocation === null) {
       await ip()
    }
 
-   let threeDays = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${q}&days=${3}`,
+   let threeDays = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${coordinates}&days=${3}`,
       {
          headers: {
             host: 'api.weatherapi.com',
@@ -90,14 +86,14 @@ async function main() {
          (jsonResponse) => jsonResponse
       )
 
-   let newcity = newCity2.results[0].components.city
-   let rus = newCity2.results[0].components.country
+   let newCity = cityFromApi.results[0].components.city
+   let rus = cityFromApi.results[0].components.country
    let eng = threeDays.location.country
 
    let res = {
       location,
       threeDays,
-      newcity,
+      newCity,
       rus,
       eng
    }
@@ -105,27 +101,23 @@ async function main() {
 }
 
 async function init() {
-   inter = clearInterval(inter)
+   interval = clearInterval(interval)
    let result = await main()
    var newDate = new Date(result.threeDays.location.localtime)
    let latLng = getLatLng(result)
    mapInit(latLng)
 
-   //*ОТКРЫТЬ ДЛЯ КАРТИНКИ document.body.style.background = `url(${result.bgImage.urls.regular})`//raw //thumb
-   // document.body.style.background = `url(${result.bgImage.urls.regular})`//raw //thumb
-   // console.log('ПРОГНОЗ НА 3 ДНЯ', threeDays(result));
-
    newDate.setSeconds(new Date().getSeconds())
    newDate.setMinutes(new Date().getMinutes())
    if (lang == true) {
-      infoLocation.classList.add('blocks__today')
-      infoLocation2.classList.add('next__info')
-      infoLocation.innerHTML = `
+      blockWeatherToDay.classList.add('blocks__today')
+      blockWatherThreeDays.classList.add('next__info')
+      blockWeatherToDay.innerHTML = `
       <h1>Погода сегодня</h1>
       <div class='today1'>
       <div class='today2'>
       <p>Страна: ${lang ? result.threeDays.location.country : result.threeDays.location.country}</p>
-      <p>Город: ${qCity == null ? result.newcity : qCity}</p>
+      <p>Город: ${coordinatesCity == null ? result.newCity : coordinatesCity}</p>
 
       <p class='timeee'>Время: ${correctTime(newDate)}</p>
       <p>Дата: ${correctDate(newDate, lang)}</p>
@@ -139,7 +131,7 @@ async function init() {
       </div>
       </div>
       `
-      infoLocation2.innerHTML = `
+      blockWatherThreeDays.innerHTML = `
       <div class="info__column">
       <div class="newRow"><h1>Погода на 3 дня</h1></div>
       <div class="info__day">
@@ -165,21 +157,21 @@ async function init() {
       </div>
       </div>
       `
-      infoLocation3.innerHTML = `
+      blockGeolocation.innerHTML = `
       <h1>Геолокация</h1>
-      <p>Координаты: ${transforMinut(q, lang)}</p>`
-      document.querySelector('.today__title').after(infoLocation)
-      document.querySelector('.next__title').after(infoLocation2)
-      document.querySelector('#map').before(infoLocation3)
+      <p>Координаты: ${transforMinut(coordinates, lang)}</p>`
+      document.querySelector('.today__title').after(blockWeatherToDay)
+      document.querySelector('.next__title').after(blockWatherThreeDays)
+      document.querySelector('#map').before(blockGeolocation)
    } else {
-      infoLocation.classList.add('blocks__today')
-      infoLocation2.classList.add('next__info')
-      infoLocation.innerHTML = `
+      blockWeatherToDay.classList.add('blocks__today')
+      blockWatherThreeDays.classList.add('next__info')
+      blockWeatherToDay.innerHTML = `
       <h1>Wheater today</h1>
       <div class='today1'>
       <div class='today2'>
       <p>Country: ${lang ? result.rus : result.threeDays.location.country}</p>
-      <p>City: ${qCity == null ? result.newcity : qCity}</p>
+      <p>City: ${coordinatesCity == null ? result.newCity : coordinatesCity}</p>
      
       <p class='timeee'>Time: ${correctTime(newDate)}</p>
       <p>Date: ${correctDate(newDate, lang)}</p>
@@ -193,7 +185,7 @@ async function init() {
       </div>
       </div>
       `
-      infoLocation2.innerHTML = `
+      blockWatherThreeDays.innerHTML = `
       <div class="info__column">
       <div class="newRow"><h1>Weather for three day</h1></div>
       <div class="info__day">
@@ -219,17 +211,14 @@ async function init() {
       </div>
       </div>
       `
-      infoLocation3.innerHTML = `
+      blockGeolocation.innerHTML = `
       <h1>Geolocation</h1>
-      <p>Coordinates: ${transforMinut(q, lang)}</p>`
-      document.querySelector('.today__title').after(infoLocation)
-      document.querySelector('.next__title').after(infoLocation2)
-      document.querySelector('#map').before(infoLocation3)
+      <p>Coordinates: ${transforMinut(coordinates, lang)}</p>`
+      document.querySelector('.today__title').after(blockWeatherToDay)
+      document.querySelector('.next__title').after(blockWatherThreeDays)
+      document.querySelector('#map').before(blockGeolocation)
    }
-
-
-
-   showTime(result, inter, lang)
+   showTime(result, interval, lang)
 }
 
 async function init2() {
@@ -265,8 +254,8 @@ async function newCity(name) {
       ).then(
          (jsonResponse) => jsonResponse
       )
-   q = `${seacrhGeo.results[0].geometry.lat},${seacrhGeo.results[0].geometry.lng}`
-   qCity = `${seacrhGeo.results[0].components.city}`
+   coordinates = `${seacrhGeo.results[0].geometry.lat},${seacrhGeo.results[0].geometry.lng}`
+   coordinatesCity = `${seacrhGeo.results[0].components.city}`
    return seacrhGeo
 }
 
@@ -282,10 +271,10 @@ async function ip() {
       ).then(
          (jsonResponse) => jsonResponse
       )
-   q = location.loc
-   start = location.loc
-   qCity = location.city
-   newCity(qCity)
+   coordinates = location.loc
+   startLocation = location.loc
+   coordinatesCity = location.city
+   newCity(coordinatesCity)
 }
 
 

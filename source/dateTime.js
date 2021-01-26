@@ -6,12 +6,11 @@ export function correctTime(time) {
 }
 
 export function correctDate(date, lang) {
-   let xxx = date.toString()
-   xxx = xxx.substr(0, 3);
+   let timeToString = date.toString()
+   timeToString = timeToString.substr(0, 3);
    let y = date.getFullYear(),
       m = date.getMonth(),
       d = date.getDate();
-
    function dateM(data, data2) {
       let month = ['Января', 'Фервраля', 'Марта', 'Апреля', 'Майя', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря']
       let monthEng = ['Jan', 'Feb', 'March', 'Apr', 'May ', 'June', 'Июля', 'July', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -33,7 +32,7 @@ export function correctDate(date, lang) {
       }
       return [newDay[0], newMonth[0]]
    }
-   m = dateM(date.getMonth(), xxx)
+   m = dateM(date.getMonth(), timeToString)
    return `${(m[0])} ${d} ${m[1]} `;
 }
 
@@ -43,27 +42,25 @@ export function transformDate(data) {
    return newDate
 }
 
-
-export function showTime(result, inter, lang) {
-   let uuu = document.querySelector('.timeee')
-   var newDate2 = new Date(result.threeDays.location.localtime)
-   let p = newDate2;
+export function showTime(result, interval, lang) {
+   let outTimer = document.querySelector('.timeee')
+   var timeToObject = new Date(result.threeDays.location.localtime)
+   let timeNow = timeToObject;
    function timerr(time) {
       p.setSeconds(new Date().getSeconds())
       p.setMinutes(new Date().getMinutes())
       let h = time.getHours(),
          m = time.getMinutes(),
          s = time.getSeconds()
-
       if (lang) {
-         uuu.innerHTML = `Время: ${h < 10 ? `0${h}` : `${h}`}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s} `
+         outTimer.innerHTML = `Время: ${h < 10 ? `0${h}` : `${h}`}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s} `
       } else {
-         uuu.innerHTML = `Time: ${h < 10 ? `0${h}` : `${h}`}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s} `
+         outTimer.innerHTML = `Time: ${h < 10 ? `0${h}` : `${h}`}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s} `
       }
    }
 
-   inter = setInterval(() => {
-      timerr(p)
+   interval = setInterval(() => {
+      timerr(timeNow)
    }, 1000);
 }
 

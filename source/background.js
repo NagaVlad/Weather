@@ -5,12 +5,5 @@ export async function getBgImg(accessKey) {
       ).then(
          (jsonResponse) => jsonResponse
       )
-   // let i = randomInteger()
    document.body.style.background = `url(${bgImg.urls.full})`
 }
-
-
-// function randomInteger() {
-//    let rand = 0 + Math.random() * (3 + 1 - 0);
-//    return Math.floor(rand);
-// }

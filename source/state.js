@@ -1,6 +1,6 @@
-let infoLocation = document.createElement('div')
-let infoLocation2 = document.createElement('div')
-let infoLocation3 = document.createElement('div')
+let blockWeatherToDay = document.createElement('div')
+let blockWatherThreeDays = document.createElement('div')
+let blockGeolocation = document.createElement('div')
 
-export { infoLocation, infoLocation2, infoLocation3 }
+export { blockWeatherToDay, blockWatherThreeDays, blockGeolocation }
 
