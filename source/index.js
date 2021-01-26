@@ -15,7 +15,7 @@ import { token, apiKey, accessKey, secretKeyImg, apiKeyGeo } from './tokens.js'
 import { infoLocation, infoLocation2, infoLocation3 } from './state.js'
 
 let start = null, q = '', qCity = null, unit = true, lang = true, searchCity = null
-let mmm = ''
+let inter = ''
 document.querySelector('#btnSearch').addEventListener('click', (e) => {
    searchCity = document.querySelector('#search').value
    newCity(searchCity, q, qCity)
@@ -105,7 +105,7 @@ async function main() {
 }
 
 async function init() {
-   mmm = clearInterval(mmm)
+   inter = clearInterval(inter)
    let result = await main()
    var newDate = new Date(result.threeDays.location.localtime)
    let latLng = getLatLng(result)
@@ -227,30 +227,9 @@ async function init() {
       document.querySelector('#map').before(infoLocation3)
    }
 
-   // let uuu = document.querySelector('.timeee')
-   // var newDate2 = new Date(result.threeDays.location.localtime)
-   // let p = newDate2;
-   // function timerr(time) {
-   //    p.setSeconds(new Date().getSeconds())
-   //    p.setMinutes(new Date().getMinutes())
-   //    let h = time.getHours(),
-   //       m = time.getMinutes(),
-   //       s = time.getSeconds(),
-   //       x = ''
-   //    console.log(`${h}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s}`);
-   //    if (lang) {
-   //       uuu.innerHTML = `Время: ${h < 10 ? `0${h}` : `${h}`}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s} `
-   //    } else {
-   //       uuu.innerHTML = `Time: ${h < 10 ? `0${h}` : `${h}`}:${m < 10 ? "0" + m : "" + m}:${s < 10 ? `0${s}` : "" + s} `
-   //    }
-   // }
 
 
-   // mmm = setInterval(() => {
-   //    timerr(p)
-   // }, 1000);
-
-   showTime(result, mmm, lang)
+   showTime(result, inter, lang)
 }
 
 async function init2() {
@@ -308,6 +287,8 @@ async function ip() {
    qCity = location.city
    newCity(qCity)
 }
+
+
 
 
 

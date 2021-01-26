@@ -44,7 +44,7 @@ export function transformDate(data) {
 }
 
 
-export function showTime(result, mmm, lang) {
+export function showTime(result, inter, lang) {
    let uuu = document.querySelector('.timeee')
    var newDate2 = new Date(result.threeDays.location.localtime)
    let p = newDate2;
@@ -62,7 +62,7 @@ export function showTime(result, mmm, lang) {
       }
    }
 
-   mmm = setInterval(() => {
+   inter = setInterval(() => {
       timerr(p)
    }, 1000);
 }
