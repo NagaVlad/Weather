@@ -86,14 +86,14 @@ async function main() {
          (jsonResponse) => jsonResponse
       )
 
-   let newCity = cityFromApi.results[0].components.city
+   let newCitys = cityFromApi.results[0].components.city
    let rus = cityFromApi.results[0].components.country
    let eng = threeDays.location.country
 
    let res = {
       location,
       threeDays,
-      newCity,
+      newCitys,
       rus,
       eng
    }
@@ -117,7 +117,7 @@ async function init() {
       <div class='today1'>
       <div class='today2'>
       <p>Страна: ${lang ? result.threeDays.location.country : result.threeDays.location.country}</p>
-      <p>Город: ${coordinatesCity == null ? result.newCity : coordinatesCity}</p>
+      <p>Город: ${coordinatesCity == null ? result.newCitys : coordinatesCity}</p>
 
       <p class='timeee'>Время: ${correctTime(newDate)}</p>
       <p>Дата: ${correctDate(newDate, lang)}</p>
@@ -171,7 +171,7 @@ async function init() {
       <div class='today1'>
       <div class='today2'>
       <p>Country: ${lang ? result.rus : result.threeDays.location.country}</p>
-      <p>City: ${coordinatesCity == null ? result.newCity : coordinatesCity}</p>
+      <p>City: ${coordinatesCity == null ? result.newCitys : coordinatesCity}</p>
      
       <p class='timeee'>Time: ${correctTime(newDate)}</p>
       <p>Date: ${correctDate(newDate, lang)}</p>
