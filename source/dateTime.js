@@ -47,8 +47,8 @@ export function showTime(result, interval, lang) {
    var timeToObject = new Date(result.threeDays.location.localtime)
    let timeNow = timeToObject;
    function timerr(time) {
-      timeNow.setSeconds(new Date().getSeconds())
-      timeNow.setMinutes(new Date().getMinutes())
+      p.setSeconds(new Date().getSeconds())
+      p.setMinutes(new Date().getMinutes())
       let h = time.getHours(),
          m = time.getMinutes(),
          s = time.getSeconds()
