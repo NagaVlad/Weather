@@ -222,14 +222,14 @@ async function init() {
 }
 
 async function init2() {
-   lang = localStorage.getItem('locper')
+   lang = localStorage.getItem('isLang')
    if (lang == 'false') {
       lang = false
    } else {
       lang = true
    }
 
-   unit = localStorage.getItem('locper2')
+   unit = localStorage.getItem('isUnit')
    if (unit == 'false') {
       unit = false
    } else {
